@@ -1,16 +1,22 @@
 from flask import Flask, render_template, request
-from scraper import scrape_jobs  # importing your scraper function
+from scraper import scrape_jobs
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET", "POST"])
-def index():
-    jobs = []
-    keyword = ""
-    if request.method == "POST":
-        keyword = request.form["keyword"]
-        jobs = scrape_jobs(keyword)
-    return render_template("index.html", jobs=jobs, keyword=keyword)
+@app.route('/')
+def home():
+    return render_template('index.html')
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route('/search', methods=['POST'])
+def search():
+    job_title = request.form['job_title']
+    location = request.form['location']
+    jobs = scrape_jobs(job_title, location)
+    return render_template('index.html', jobs=jobs, job_title=job_title, location=location)
+
+# ✅ Correct binding for Render (host + port)
+import os
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
