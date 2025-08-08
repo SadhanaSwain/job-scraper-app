@@ -10,6 +10,7 @@ A simple web application built with Python and Flask that scrapes job listings b
 
 ## 🚀 Live Demo
 https://job-scraper-app-l488.onrender.com
+[GitHub](https://github.com/SadhanaSwain/job-scraper-app)
 ## 🛠 Built With
 - Python
 - Flask
